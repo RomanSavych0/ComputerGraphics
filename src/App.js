@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+// import "./App.css";
+import "./main.scss";
+
+import { NavLink } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import { Fractal } from "./pages/Fractals/Fractal";
+import { Models } from "./pages/Models/Models";
+import { Triangles } from "./pages/Triangles/Triangles";
+import { Main } from "./pages/Main/Main";
+import React from "react";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main">
+      <Switch>
+        <Route path="/fractal" exact render={() => <Fractal />} />
+        <Route path="/" exact render={() => <Main />} />
+        <Route path="/models" exact render={() => <Models />} />
+        <Route path="/triangle" exact render={() => <Triangles />} />
+      </Switch>
     </div>
   );
 }
