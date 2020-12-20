@@ -1,7 +1,7 @@
 import { SecondLayout } from "layouts/SecondLayout";
 import React, { useEffect, useState } from "react";
 
-export const Fractal = () => {
+export const Fractals = () => {
   const [sliderValue, setSliderValue] = useState(0);
   useEffect(() => {
     console.log(document.body.classList);

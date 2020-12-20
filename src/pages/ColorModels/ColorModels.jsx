@@ -1,5 +1,5 @@
 import React from "react";
 
-export const Models = () => {
+export const ColorModels = () => {
   return <div>Modals</div>;
 };
