@@ -72,7 +72,9 @@ export const drawCanvas = (canvas, context, depth, color, animationActive) => {
 };
 
 let depth = 2;
-
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 export const drawCanvas2 = (
   canvas1,
   context1,
@@ -90,44 +92,23 @@ export const drawCanvas2 = (
   const len1 = canvas1.height / 2;
 
   const paint1 = () => {
-    // if (animationActive) {
-    //   setTimeout(() => {
-    //     context1.clearRect(0, 0, canvas1.width, canvas1.height);
-    //     tSquare(center1, len1, depth1);
-    //   }, 4000);
-    // } else {
-    //   context1.clearRect(0, 0, canvas1.width, canvas1.height);
-    //   tSquare(center1, len1, depth1);
-    // }
-
     context1.clearRect(0, 0, canvas1.width, canvas1.height);
     tSquare(center1, len1, depth1);
   };
 
-  const tSquare = (point, length1, depth) => {
+  const tSquare = async (point, length1, depth) => {
     if (depth === 0) {
       return;
     }
 
     // draw central square
     context1.fillStyle = color;
-    if (animationActive) {
-      setTimeout(() => {
-        context1.fillRect(
-          point.x - length1 / 2,
-          point.y - length1 / 2,
-          length1,
-          length1
-        );
-      }, 2000);
-    } else {
-      context1.fillRect(
-        point.x - length1 / 2,
-        point.y - length1 / 2,
-        length1,
-        length1
-      );
-    }
+    context1.fillRect(
+      point.x - length1 / 2,
+      point.y - length1 / 2,
+      length1,
+      length1
+    );
     depth--;
     length1 = length1 / 2;
 
@@ -139,12 +120,16 @@ export const drawCanvas2 = (
     // recurse recurse recurse recurse
 
     tSquare(v1, length1, depth);
+    await sleep(2000);
+
     tSquare(v2, length1, depth);
+    await sleep(2000);
+
     tSquare(v3, length1, depth);
+    await sleep(2000);
+
     tSquare(v4, length1, depth);
   };
   // window.requestAnimationFrame();
   paint1();
-
-  // setTimeout(() =>, 2000);
 };
