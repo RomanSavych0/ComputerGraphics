@@ -8,6 +8,10 @@
   padding-bottom: 207px;
 }
 .main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 69%;
 }
 .buttons {
   font-family: Lato;
@@ -39,9 +43,28 @@
 
   .title {
     width: 50%;
-    color: white;
+
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 43px;
+    letter-spacing: -0.015em;
+
+    color: #eeeeee;
   }
   .count {
+    border-radius: 10px;
+    padding-right: 10px;
+    height: 42px;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 43px;
+    letter-spacing: -0.015em;
+
+    color: #000000;
     width: 50%;
     background: white;
     display: flex;
@@ -59,6 +82,7 @@
   margin-top: 100px;
   justify-content: space-around;
   align-items: center;
+  width: 87%;
   .checkbox {
     cursor: pointer;
     width: 71px;

@@ -1,4 +1,4 @@
-export const drawCanvas = (canvas, context, depth, color) => {
+export const drawCanvas = (canvas, context, depth, color, animationActive) => {
   context.strokeStyle = color;
 
   const center = {
@@ -45,10 +45,19 @@ export const drawCanvas = (canvas, context, depth, color) => {
 
   // line helper
   const drawLine = (from, to) => {
-    context.beginPath();
-    context.moveTo(from.x, from.y);
-    context.lineTo(to.x, to.y);
-    context.stroke();
+    if (animationActive) {
+      setTimeout(() => {
+        context.beginPath();
+        context.moveTo(from.x, from.y);
+        context.lineTo(to.x, to.y);
+        context.stroke();
+      }, 2000);
+    } else {
+      context.beginPath();
+      context.moveTo(from.x, from.y);
+      context.lineTo(to.x, to.y);
+      context.stroke();
+    }
   };
 
   // paint helper
@@ -64,7 +73,13 @@ export const drawCanvas = (canvas, context, depth, color) => {
 
 let depth = 2;
 
-export const drawCanvas2 = (canvas1, context1, depth1, color) => {
+export const drawCanvas2 = (
+  canvas1,
+  context1,
+  depth1,
+  color,
+  animationActive
+) => {
   context1.strokeStyle = "#00386B";
 
   const center1 = {
@@ -75,8 +90,15 @@ export const drawCanvas2 = (canvas1, context1, depth1, color) => {
   const len1 = canvas1.height / 2;
 
   const paint1 = () => {
-    context1.clearRect(0, 0, canvas1.width, canvas1.height);
-    tSquare(center1, len1, depth1);
+    if (animationActive) {
+      setTimeout(() => {
+        context1.clearRect(0, 0, canvas1.width, canvas1.height);
+        tSquare(center1, len1, depth1);
+      }, 1000);
+    } else {
+      context1.clearRect(0, 0, canvas1.width, canvas1.height);
+      tSquare(center1, len1, depth1);
+    }
   };
 
   const tSquare = (point, length1, depth) => {

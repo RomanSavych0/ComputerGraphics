@@ -16,9 +16,9 @@ export const Fractals = () => {
     document.body.style.backgroundColor = "white";
     const context = canvas.current.getContext("2d");
     if (canvasTSelected) {
-      drawCanvas(canvas.current, context, sliderValue);
+      drawCanvas2(canvas.current, context, sliderValue, animationActive);
     } else {
-      drawCanvas2(canvas.current, context, sliderValue);
+      drawCanvas(canvas.current, context, sliderValue, animationActive);
     }
     return () => {
       document.body.style.backgroundColor = "#0f3460";
@@ -34,6 +34,13 @@ export const Fractals = () => {
               className={cn(c.button, canvasTSelected && c.active)}
               onClick={() => {
                 setCanvasTSelected(true);
+                drawCanvas2(
+                  canvas.current,
+                  canvas.current.getContext("2d"),
+                  sliderValue,
+                  selectedColor,
+                  animationActive
+                );
               }}
             >
               T-square
@@ -42,6 +49,23 @@ export const Fractals = () => {
               className={cn(c.button, !canvasTSelected && c.active)}
               onClick={() => {
                 setCanvasTSelected(false);
+                if (canvasTSelected) {
+                  drawCanvas(
+                    canvas.current,
+                    canvas.current.getContext("2d"),
+                    sliderValue,
+                    selectedColor,
+                    animationActive
+                  );
+                } else {
+                  drawCanvas2(
+                    canvas.current,
+                    canvas.current.getContext("2d"),
+                    sliderValue,
+                    selectedColor,
+                    animationActive
+                  );
+                }
               }}
             >
               H-tree
@@ -61,18 +85,20 @@ export const Fractals = () => {
                 // @ts-ignore
                 setSliderValue(e.target.value);
                 if (canvasTSelected) {
-                  drawCanvas(
-                    canvas.current,
-                    canvas.current.getContext("2d"),
-                    sliderValue,
-                    selectedColor
-                  );
-                } else {
                   drawCanvas2(
                     canvas.current,
                     canvas.current.getContext("2d"),
                     sliderValue,
-                    selectedColor
+                    selectedColor,
+                    animationActive
+                  );
+                } else {
+                  drawCanvas(
+                    canvas.current,
+                    canvas.current.getContext("2d"),
+                    sliderValue,
+                    selectedColor,
+                    animationActive
                   );
                 }
               }}
