@@ -4,7 +4,7 @@ import { drawCanvas, drawCanvas2 } from "./fractal/fractal";
 import c from "./Fractal.module.scss";
 import cn from "classnames";
 // import "./fractal/fractal.js";
-export const Fractal = () => {
+export const Fractals = () => {
   const [sliderValue, setSliderValue] = useState(1);
   const [animationActive, setAnimationActive] = useState(false);
   const [canvasTSelected, setCanvasTSelected] = useState(false);
