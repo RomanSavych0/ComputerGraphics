@@ -99,14 +99,16 @@ const AffineTransformationsView = () => {
       .select('.y-axis')
       .call(yAxis);
 
-    svg
-      .select('.pointsLabels')
-      .selectAll('text')
-      .data(points)
-      .join('text')
-      .attr('x', (d) => xScale(d[0] + 0.2))
-      .attr('y', (d) => yScale(d[1] - 0.2))
-      .text((d, i) => pointsName[i]);
+    if (points.filter((el) => el[0] !== 0 && el[1] !== 0).length) {
+      svg
+        .select('.pointsLabels')
+        .selectAll('text')
+        .data(points)
+        .join('text')
+        .attr('x', (d) => xScale(d[0] + 0.2))
+        .attr('y', (d) => yScale(d[1] - 0.2))
+        .text((d, i) => pointsName[i]);
+    }
 
     const pos = [[width + 10, height], [0, -10]];
     const axesNames = ['X', 'Y'];
