@@ -1,0 +1,108 @@
+.fractalWrapper {
+  display: flex;
+}
+.content {
+  padding-top: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 207px;
+}
+.main {
+}
+.buttons {
+  font-family: Lato;
+
+  display: flex;
+  //   justify-content: space-between;
+  //   background: #f05454;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  background: white;
+
+  .button {
+    width: 50%;
+    padding: 20px;
+    background: white;
+    cursor: pointer;
+    &.active {
+      background: #f05454;
+      border-radius: 20px;
+    }
+  }
+}
+.iterations {
+  font-family: Lato;
+
+  justify-content: space-between;
+  display: flex;
+  margin-top: 130px;
+
+  .title {
+    width: 50%;
+    color: white;
+  }
+  .count {
+    width: 50%;
+    background: white;
+    display: flex;
+    justify-content: flex-end;
+    font-style: normal;
+    font-weight: 600;
+
+    letter-spacing: -0.015em;
+
+    color: #000000;
+  }
+}
+.animation {
+  display: flex;
+  margin-top: 100px;
+  justify-content: space-around;
+  align-items: center;
+  .checkbox {
+    cursor: pointer;
+    width: 71px;
+    height: 41px;
+    background: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25),
+      0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25),
+      0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25),
+      0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+
+    &::after {
+      transition: all 1s ease-out;
+      content: "";
+      display: block;
+      width: 31px;
+      height: 31px;
+      background: #f05454;
+      position: relative;
+      border-radius: 38px;
+      top: 5px;
+    }
+    &.active {
+      transition: all 1s ease-out;
+
+      &::after {
+        left: 41px;
+      }
+    }
+  }
+  .title {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 600;
+
+    letter-spacing: -0.015em;
+
+    color: #eeeeee;
+  }
+}
+.color {
+  margin-top: 125px;
+  color: white;
+  &__selectWrapper {
+    margin-top: 25px;
+  }
+}

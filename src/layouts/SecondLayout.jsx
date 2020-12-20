@@ -1,23 +1,27 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import c from "./SecondLayout.module.scss";
 export const SecondLayout = (props) => {
   return (
     <div className={c.layout}>
       <div className={c.buttons}>
-        <div className={c.back}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="55"
-            height="30"
-            viewBox="0 0 55 30"
-            fill="none"
-          >
-            <path
-              d="M0.585789 13.5858C-0.195259 14.3668 -0.195259 15.6332 0.585789 16.4142L13.3137 29.1421C14.0948 29.9232 15.3611 29.9232 16.1421 29.1421C16.9232 28.3611 16.9232 27.0948 16.1421 26.3137L4.82843 15L16.1421 3.68629C16.9232 2.90524 16.9232 1.63891 16.1421 0.857864C15.3611 0.0768156 14.0948 0.0768156 13.3137 0.857864L0.585789 13.5858ZM55 13L2 13V17L55 17V13Z"
-              fill="black"
-            />
-          </svg>
-        </div>
+        <NavLink to="/">
+          <div className={c.back}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="55"
+              height="30"
+              viewBox="0 0 55 30"
+              fill="none"
+            >
+              <path
+                d="M0.585789 13.5858C-0.195259 14.3668 -0.195259 15.6332 0.585789 16.4142L13.3137 29.1421C14.0948 29.9232 15.3611 29.9232 16.1421 29.1421C16.9232 28.3611 16.9232 27.0948 16.1421 26.3137L4.82843 15L16.1421 3.68629C16.9232 2.90524 16.9232 1.63891 16.1421 0.857864C15.3611 0.0768156 14.0948 0.0768156 13.3137 0.857864L0.585789 13.5858ZM55 13L2 13V17L55 17V13Z"
+                fill="black"
+              />
+            </svg>
+          </div>
+        </NavLink>
+
         <div className={c.info}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
