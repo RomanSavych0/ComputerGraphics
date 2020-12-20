@@ -16,7 +16,7 @@ const AffineTransformationsView = () => {
   const startAnimationTime = useRef(0);
   const initialPoints = useRef([[0, 0], [0, 0], [0, 0], [0, 0]]);
   const animationTime = 3000;
-  const pointsName = ["A", "B", "C"];
+  const pointsName = ['A', 'B', 'C'];
 
   const stopAnimation = () => {
     window.cancelAnimationFrame(requestId.current);
@@ -45,7 +45,9 @@ const AffineTransformationsView = () => {
         stopAnimation();
       }
 
-      if (rotationInRadians.current !== 0 && xScale.current !== 1 && yScale.current !== 1) {
+      if (rotationInRadians.current === 0 && xScale.current === 1 && yScale.current === 1) {
+
+      } else {
         const timerId = setTimeout(() => {
           startAnimationTime.current = performance.now();
 
@@ -106,6 +108,18 @@ const AffineTransformationsView = () => {
       .attr('y', (d) => yScale(d[1] - 0.2))
       .text((d, i) => pointsName[i]);
 
+    const pos = [[width + 10, height], [0, -10]];
+    const axesNames = ['X', 'Y'];
+
+    svg
+      .select('.axesLabels')
+      .selectAll('text')
+      .data(pos)
+      .join('text')
+      .attr('x', (d) => d[0])
+      .attr('y', (d) => d[1])
+      .text((d, i) => axesNames[i]);
+
   }, [points]);
 
   useEffect(() => {
@@ -150,11 +164,12 @@ const AffineTransformationsView = () => {
   });
 
   return (
-    <svg ref={ref} style={{margin: 40}}>
+    <svg ref={ref} style={{padding: 40}}>
       <path/>
       <g className={'x-axis'}/>
       <g className={'y-axis'}/>
       <g className={'pointsLabels'}/>
+      <g className={'axesLabels'}/>
     </svg>
   );
 };
