@@ -1,34 +1,30 @@
-import React from "react";
-// import fractal from "../../images/fractal";
-import colorModels from "../../images/colorModels.png";
-import triangle from "../../images/triangle.png";
-import fractal from "../../images/fractal.png";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import colorModels from '../../images/colorModels.png';
+import triangle from '../../images/triangle.png';
+import fractal from '../../images/fractal.png';
+import {NavLink} from 'react-router-dom';
+
 export const Main = () => {
   return (
     <div className="container">
-      <div className="title"> Computer Graphics</div>
+      <div className="title">Computer Graphics</div>
       <div className="cards">
-        <NavLink to="/fractal">
+        <NavLink to="/fractals">
           <div className="card">
-            <img src={fractal} />
+            <img src={fractal} alt={'fractal'}/>
             <div className="card__description">Fractal</div>
           </div>
         </NavLink>
-        <NavLink to="/models">
+        <NavLink to="/color-models">
           <div className="card">
-            <img src={colorModels} />
-            <div className="card__description"> Color models</div>
+            <img src={colorModels} alt={'color-models'}/>
+            <div className="card__description">Color models</div>
           </div>
         </NavLink>
-        <NavLink
-          // @ts-ignore
-          Navlink
-          to="/triagnle"
-        >
+        <NavLink to="/affine-transformations">
           <div className="card">
-            <img src={triangle} />
-            <div className="card__description"> Affine transformations</div>
+            <img src={triangle} alt={'triangle'}/>
+            <div className="card__description">Affine transformations</div>
           </div>
         </NavLink>
       </div>
