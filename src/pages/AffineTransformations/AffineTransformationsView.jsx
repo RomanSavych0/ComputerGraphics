@@ -16,7 +16,7 @@ const AffineTransformationsView = () => {
   const startAnimationTime = useRef(0);
   const initialPoints = useRef([[0, 0], [0, 0], [0, 0], [0, 0]]);
   const animationTime = 3000;
-  const pointsName = ["A", "B", "C"];
+  const pointsName = ['A', 'B', 'C'];
 
   const stopAnimation = () => {
     window.cancelAnimationFrame(requestId.current);
@@ -45,15 +45,19 @@ const AffineTransformationsView = () => {
         stopAnimation();
       }
 
-      const timerId = setTimeout(() => {
-        startAnimationTime.current = performance.now();
+      if (rotationInRadians.current === 0 && xScale.current === 1 && yScale.current === 1) {
 
-        setAnimating(true);
-      }, 1000);
+      } else {
+        const timerId = setTimeout(() => {
+          startAnimationTime.current = performance.now();
 
-      return () => {
-        clearTimeout(timerId);
-      };
+          setAnimating(true);
+        }, 1000);
+
+        return () => {
+          clearTimeout(timerId);
+        };
+      }
     }
   }, [properties]);
 
@@ -95,14 +99,28 @@ const AffineTransformationsView = () => {
       .select('.y-axis')
       .call(yAxis);
 
+    if (points.filter((el) => el[0] !== 0 && el[1] !== 0).length) {
+      svg
+        .select('.pointsLabels')
+        .selectAll('text')
+        .data(points)
+        .join('text')
+        .attr('x', (d) => xScale(d[0] + 0.2))
+        .attr('y', (d) => yScale(d[1] - 0.2))
+        .text((d, i) => pointsName[i]);
+    }
+
+    const pos = [[width + 10, height], [0, -10]];
+    const axesNames = ['X', 'Y'];
+
     svg
-      .select('.pointsLabels')
+      .select('.axesLabels')
       .selectAll('text')
-      .data(points)
+      .data(pos)
       .join('text')
-      .attr('x', (d) => xScale(d[0] + 0.2))
-      .attr('y', (d) => yScale(d[1] - 0.2))
-      .text((d, i) => pointsName[i]);
+      .attr('x', (d) => d[0])
+      .attr('y', (d) => d[1])
+      .text((d, i) => axesNames[i]);
 
   }, [points]);
 
@@ -148,11 +166,12 @@ const AffineTransformationsView = () => {
   });
 
   return (
-    <svg ref={ref} style={{margin: 40}}>
+    <svg ref={ref} style={{padding: 40}}>
       <path/>
       <g className={'x-axis'}/>
       <g className={'y-axis'}/>
       <g className={'pointsLabels'}/>
+      <g className={'axesLabels'}/>
     </svg>
   );
 };
