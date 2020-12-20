@@ -12,14 +12,14 @@ const ConvertColorProperties = () => {
         b: '',
         h: '',
         s: '',
-        l: ''
+        v: ''
       }}
       onSubmit={({r, g, b}, {setFieldValue}) => {
-        const [h, s, l] = convert.rgb.hsl(+r, +g, +b);
+        const [h, s, v] = convert.rgb.hsv(+r, +g, +b);
 
         setFieldValue('h', h)
         setFieldValue('s', s)
-        setFieldValue('l', l)
+        setFieldValue('v', v)
       }}
     >
       <Form className={s.convertForm}>
@@ -48,8 +48,8 @@ const ConvertColorProperties = () => {
               <Field disabled id={'s'} name={'s'}/>
             </div>
             <div>
-              <label htmlFor="l">L:</label>
-              <Field disabled id={'l'} name={'l'}/>
+              <label htmlFor="v">V:</label>
+              <Field disabled id={'v'} name={'v'}/>
             </div>
           </div>
         </div>

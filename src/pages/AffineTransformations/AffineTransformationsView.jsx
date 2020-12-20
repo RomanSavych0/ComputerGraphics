@@ -16,6 +16,7 @@ const AffineTransformationsView = () => {
   const startAnimationTime = useRef(0);
   const initialPoints = useRef([[0, 0], [0, 0], [0, 0], [0, 0]]);
   const animationTime = 3000;
+  const pointsName = ["A", "B", "C"];
 
   const stopAnimation = () => {
     window.cancelAnimationFrame(requestId.current);
@@ -93,6 +94,16 @@ const AffineTransformationsView = () => {
     svg
       .select('.y-axis')
       .call(yAxis);
+
+    svg
+      .select('.pointsLabels')
+      .selectAll('text')
+      .data(points)
+      .join('text')
+      .attr('x', (d) => xScale(d[0] + 0.2))
+      .attr('y', (d) => yScale(d[1] - 0.2))
+      .text((d, i) => pointsName[i]);
+
   }, [points]);
 
   useEffect(() => {
@@ -130,7 +141,9 @@ const AffineTransformationsView = () => {
         ));
       });
 
-      return stopAnimation;
+      return () => {
+        stopAnimation();
+      };
     }
   });
 
@@ -139,6 +152,7 @@ const AffineTransformationsView = () => {
       <path/>
       <g className={'x-axis'}/>
       <g className={'y-axis'}/>
+      <g className={'pointsLabels'}/>
     </svg>
   );
 };
