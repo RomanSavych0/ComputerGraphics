@@ -1,5 +1,13 @@
-import React from "react";
+import React from 'react';
+import {MainWrapper} from '../../layouts/MainWrapper';
+import AffineTransformationsProperties from './AffineTransformationsProperties';
+import AffineTransformationsView from './AffineTransformationsView';
 
 export const AffineTransformations = () => {
-  return <div>Affine Transformations</div>;
+  return (
+    <MainWrapper
+      Properties={<AffineTransformationsProperties/>}
+      View={<AffineTransformationsView/>}
+    />
+  );
 };
