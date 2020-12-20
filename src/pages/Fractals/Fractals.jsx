@@ -1,4 +1,4 @@
-import { SecondLayout } from "layouts/SecondLayout";
+import { MainWrapper } from "layouts/MainWrapper";
 import React, { useEffect, useState } from "react";
 
 export const Fractals = () => {
@@ -10,7 +10,7 @@ export const Fractals = () => {
 
   return (
     <div>
-      <SecondLayout>
+      <MainWrapper>
         <div>
           <input
             type="range"
@@ -28,7 +28,7 @@ export const Fractals = () => {
             Value: <span id="demo"></span>
           </p>
         </div>
-      </SecondLayout>
+      </MainWrapper>
       <div>
         <canvas id="c" height="600" width="840"></canvas>
       </div>

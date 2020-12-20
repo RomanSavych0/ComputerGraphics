@@ -1,9 +1,10 @@
-body {
-  background: #0f3460;
-}
 
 .main {
   .container {
+    display: inline-block;
+    background-color: #0f3460;
+    width: 100%;
+
     .title {
       font-family: Lato, sans-serif;
       font-style: normal;
@@ -20,6 +21,7 @@ body {
       display: flex;
       align-items: center;
       justify-content: space-evenly;
+      margin-bottom: 108px;
 
       .card {
         width: 500px;
