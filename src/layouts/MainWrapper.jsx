@@ -24,7 +24,7 @@ export const MainWrapper = ({Properties, View}) => {
           {Properties}
         </div>
       </div>
-      <div className={'view'}>
+      <div className={s.view}>
         {View}
       </div>
     </div>

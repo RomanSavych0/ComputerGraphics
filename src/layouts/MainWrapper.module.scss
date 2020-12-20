@@ -1,11 +1,15 @@
 .mainWrapper {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 600px 1fr;
 }
 
 .properties {
   background-color: #0f3460;
   padding: 33px;
+}
+
+.view {
+  height: 100%;
 }
 
 .toolBar {
