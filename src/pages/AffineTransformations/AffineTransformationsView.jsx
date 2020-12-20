@@ -45,15 +45,17 @@ const AffineTransformationsView = () => {
         stopAnimation();
       }
 
-      const timerId = setTimeout(() => {
-        startAnimationTime.current = performance.now();
+      if (rotationInRadians.current !== 0 && xScale.current !== 1 && yScale.current !== 1) {
+        const timerId = setTimeout(() => {
+          startAnimationTime.current = performance.now();
 
-        setAnimating(true);
-      }, 1000);
+          setAnimating(true);
+        }, 1000);
 
-      return () => {
-        clearTimeout(timerId);
-      };
+        return () => {
+          clearTimeout(timerId);
+        };
+      }
     }
   }, [properties]);
 
