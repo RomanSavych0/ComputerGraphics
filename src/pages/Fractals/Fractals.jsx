@@ -80,31 +80,41 @@ export const Fractals = () => {
               type="range"
               min={1}
               max={10}
+              step={1}
               value={sliderValue}
               onChange={(e) => {
                 // @ts-ignore
                 setSliderValue(e.target.value);
-                if (canvasTSelected) {
-                  drawCanvas2(
-                    canvas.current,
-                    canvas.current.getContext("2d"),
-                    sliderValue,
-                    selectedColor,
-                    animationActive
-                  );
-                } else {
-                  drawCanvas(
-                    canvas.current,
-                    canvas.current.getContext("2d"),
-                    sliderValue,
-                    selectedColor,
-                    animationActive
-                  );
-                }
+                console.log("slider value " + sliderValue);
               }}
               className="slider"
               id="myRange"
             />
+            <div className={c.buttonWrapper}>
+              <button
+                onClick={() => {
+                  if (canvasTSelected) {
+                    drawCanvas2(
+                      canvas.current,
+                      canvas.current.getContext("2d"),
+                      sliderValue,
+                      selectedColor,
+                      animationActive
+                    );
+                  } else {
+                    drawCanvas(
+                      canvas.current,
+                      canvas.current.getContext("2d"),
+                      sliderValue,
+                      selectedColor,
+                      animationActive
+                    );
+                  }
+                }}
+              >
+                draw
+              </button>
+            </div>
           </div>
 
           <div className={c.animation}>

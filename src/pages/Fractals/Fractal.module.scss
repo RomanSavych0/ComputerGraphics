@@ -13,6 +13,27 @@
   align-items: center;
   width: 69%;
 }
+button {
+  background: #f05454;
+  border-radius: 9px;
+  padding: 12px;
+  margin-top: 30px;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 43px;
+  text-align: center;
+  letter-spacing: -0.015em;
+
+  color: #eeeeee;
+  width: 264px;
+}
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .buttons {
   font-family: Lato;
 

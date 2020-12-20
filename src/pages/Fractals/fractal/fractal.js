@@ -1,6 +1,6 @@
 export const drawCanvas = (canvas, context, depth, color, animationActive) => {
   context.strokeStyle = color;
-
+  console.log(depth);
   const center = {
     x: canvas.width / 2.0,
     y: canvas.height / 2.0,
@@ -90,15 +90,18 @@ export const drawCanvas2 = (
   const len1 = canvas1.height / 2;
 
   const paint1 = () => {
-    if (animationActive) {
-      setTimeout(() => {
-        context1.clearRect(0, 0, canvas1.width, canvas1.height);
-        tSquare(center1, len1, depth1);
-      }, 1000);
-    } else {
-      context1.clearRect(0, 0, canvas1.width, canvas1.height);
-      tSquare(center1, len1, depth1);
-    }
+    // if (animationActive) {
+    //   setTimeout(() => {
+    //     context1.clearRect(0, 0, canvas1.width, canvas1.height);
+    //     tSquare(center1, len1, depth1);
+    //   }, 4000);
+    // } else {
+    //   context1.clearRect(0, 0, canvas1.width, canvas1.height);
+    //   tSquare(center1, len1, depth1);
+    // }
+
+    context1.clearRect(0, 0, canvas1.width, canvas1.height);
+    tSquare(center1, len1, depth1);
   };
 
   const tSquare = (point, length1, depth) => {
@@ -108,13 +111,23 @@ export const drawCanvas2 = (
 
     // draw central square
     context1.fillStyle = color;
-    context1.fillRect(
-      point.x - length1 / 2,
-      point.y - length1 / 2,
-      length1,
-      length1
-    );
-
+    if (animationActive) {
+      setTimeout(() => {
+        context1.fillRect(
+          point.x - length1 / 2,
+          point.y - length1 / 2,
+          length1,
+          length1
+        );
+      }, 2000);
+    } else {
+      context1.fillRect(
+        point.x - length1 / 2,
+        point.y - length1 / 2,
+        length1,
+        length1
+      );
+    }
     depth--;
     length1 = length1 / 2;
 
@@ -124,11 +137,14 @@ export const drawCanvas2 = (
     var v3 = { x: point.x - length1, y: point.y + length1 };
     var v4 = { x: point.x + length1, y: point.y - length1 };
     // recurse recurse recurse recurse
+
     tSquare(v1, length1, depth);
     tSquare(v2, length1, depth);
     tSquare(v3, length1, depth);
     tSquare(v4, length1, depth);
   };
-
+  // window.requestAnimationFrame();
   paint1();
+
+  // setTimeout(() =>, 2000);
 };
