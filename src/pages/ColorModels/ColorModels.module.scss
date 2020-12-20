@@ -10,3 +10,31 @@
   height: 300px;
   background-size: cover;
 }
+
+.convertForm, .fileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.convertValuesContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.convertValuesColumn {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  color: white;
+  padding: 0 10px;
+}
+
+input {
+  width: 50px;
+}
