@@ -11,11 +11,13 @@ export const drawCanvas = (canvas, context, depth, color, animationActive) => {
   const len = canvas.width / sqrt2 / sqrt2;
 
   // recursive func
-  const hTree = (point, len, depth) => {
+  const hTree = async (point, len, depth) => {
     if (depth === 0) {
       return;
     }
-
+    if (animationActive) {
+      await sleep(1000);
+    }
     // draw horizontal line
     const h1 = { x: point.x - len / 2.0, y: point.y };
     const h2 = { x: point.x + len / 2.0, y: point.y };
@@ -45,19 +47,23 @@ export const drawCanvas = (canvas, context, depth, color, animationActive) => {
 
   // line helper
   const drawLine = (from, to) => {
-    if (animationActive) {
-      setTimeout(() => {
-        context.beginPath();
-        context.moveTo(from.x, from.y);
-        context.lineTo(to.x, to.y);
-        context.stroke();
-      }, 2000);
-    } else {
-      context.beginPath();
-      context.moveTo(from.x, from.y);
-      context.lineTo(to.x, to.y);
-      context.stroke();
-    }
+    // if (animationActive) {
+    //   setTimeout(() => {
+    //     context.beginPath();
+    //     context.moveTo(from.x, from.y);
+    //     context.lineTo(to.x, to.y);
+    //     context.stroke();
+    //   }, 2000);
+    // } else {
+    //   context.beginPath();
+    //   context.moveTo(from.x, from.y);
+    //   context.lineTo(to.x, to.y);
+    //   context.stroke();
+    // }
+    context.beginPath();
+    context.moveTo(from.x, from.y);
+    context.lineTo(to.x, to.y);
+    context.stroke();
   };
 
   // paint helper
@@ -91,7 +97,7 @@ export const drawCanvas2 = (
 
   const len1 = canvas1.height / 2;
 
-  const paint1 = () => {
+  const paint1 = async () => {
     context1.clearRect(0, 0, canvas1.width, canvas1.height);
     tSquare(center1, len1, depth1);
   };
@@ -100,9 +106,12 @@ export const drawCanvas2 = (
     if (depth === 0) {
       return;
     }
-
     // draw central square
     context1.fillStyle = color;
+    if (animationActive) {
+      await sleep(1000);
+    }
+
     context1.fillRect(
       point.x - length1 / 2,
       point.y - length1 / 2,
@@ -120,13 +129,10 @@ export const drawCanvas2 = (
     // recurse recurse recurse recurse
 
     tSquare(v1, length1, depth);
-    await sleep(2000);
 
     tSquare(v2, length1, depth);
-    await sleep(2000);
 
     tSquare(v3, length1, depth);
-    await sleep(2000);
 
     tSquare(v4, length1, depth);
   };
