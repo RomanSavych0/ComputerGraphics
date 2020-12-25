@@ -1,16 +1,19 @@
-import React, {createContext, useState} from 'react';
+import React, { createContext, useState } from "react";
 
-export const ColorModelsContext = createContext('color-models');
+export const ColorModelsContext = createContext("color-models");
 
-const ColorModelsProvider = ({children}) => {
-  const [fileSrc, setFileSrc] = useState('');
-  const [greenSaturation, setGreenSaturation] = useState('1');
+const ColorModelsProvider = ({ children }) => {
+  const [fileSrc, setFileSrc] = useState("");
+  const [greenSaturation, setGreenSaturation] = useState("1");
 
   return (
     <ColorModelsContext.Provider
+      // @ts-ignore
       value={{
-        fileSrc, setFileSrc,
-        greenSaturation, setGreenSaturation
+        fileSrc,
+        setFileSrc,
+        greenSaturation,
+        setGreenSaturation,
       }}
     >
       {children}
