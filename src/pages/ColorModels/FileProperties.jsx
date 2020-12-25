@@ -5,6 +5,7 @@ import {ColorModelsContext} from '../../contexts/ColorModelsContext';
 const FileProperties = () => {
   const {setFileSrc, setGreenSaturation, greenSaturation} = useContext(ColorModelsContext);
   const inputRef = useRef();
+  const timerId = useRef();
 
   const handleUploadFile = () => {
     const file = inputRef.current.files[0];
@@ -15,8 +16,14 @@ const FileProperties = () => {
     }
   };
 
-  const handleChangeGreenSaturation = (e) => {
-    setGreenSaturation(e.target.value);
+  const handleChangeGreenSaturation = ({target: {value}}) => {
+    if (timerId) {
+      clearTimeout(timerId)
+    }
+
+    setTimeout(() => {
+      setGreenSaturation(value);
+    }, 50)
   };
 
   return (
