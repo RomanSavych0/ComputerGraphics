@@ -16,6 +16,7 @@
 }
 .back,
 .info {
+  cursor: pointer;
   background-color: white;
   border-radius: 50%;
   width: 84px;
@@ -35,4 +36,14 @@ select {
   letter-spacing: -0.015em;
 
   color: #000000;
+}
+.someText {
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 43px;
+  letter-spacing: -0.015em;
+
+  color: #eeeeee;
 }

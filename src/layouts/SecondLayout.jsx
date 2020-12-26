@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import c from "./SecondLayout.module.scss";
 export const SecondLayout = (props) => {
+  const [infoMode, setInfoMode] = useState(true);
   return (
     <div className={c.layout}>
       <div className={c.buttons}>
@@ -22,7 +23,12 @@ export const SecondLayout = (props) => {
           </div>
         </NavLink>
 
-        <div className={c.info}>
+        <div
+          className={c.info}
+          onClick={() => {
+            setInfoMode(!infoMode);
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="17"
@@ -37,7 +43,8 @@ export const SecondLayout = (props) => {
           </svg>
         </div>
       </div>
-      {props.children}
+
+      {infoMode ? props.children : <div className={c.someText}>Some text</div>}
     </div>
   );
 };

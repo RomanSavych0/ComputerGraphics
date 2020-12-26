@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import { NavLink } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 // import { NavLink } from "react-router-dom";
@@ -6,6 +6,7 @@ import "./MainWrapper.module.scss";
 import s from "./MainWrapper.module.scss";
 
 export const MainWrapper = ({ Properties, View }) => {
+  const [infoMode, setInfoMode] = useState(true);
   return (
     <div className={s.mainWrapper}>
       <div>
@@ -24,7 +25,12 @@ export const MainWrapper = ({ Properties, View }) => {
               />
             </svg>
           </NavLink>
-          <div className={s.infoButton}>
+          <div
+            className={s.infoButton}
+            onClick={() => {
+              setInfoMode(!infoMode);
+            }}
+          >
             <svg
               width="17"
               height="48"
@@ -39,7 +45,19 @@ export const MainWrapper = ({ Properties, View }) => {
             </svg>
           </div>
         </div>
-        <div className={s.properties}>{Properties}</div>
+        <div className={s.properties}>
+          {infoMode ? (
+            Properties
+          ) : (
+            <div className={s.infoText}>
+              Some text Some text Some text Some text Some text Some text Some
+              text Some text Some text Some text Some text Some text Some text
+              Some text Some text Some text Some text Some text Some text Some
+              text Some text Some text Some text Some text Some text Some text
+              Some text Some text Some text S
+            </div>
+          )}
+        </div>
       </div>
       <div className={s.view}>{View}</div>
     </div>

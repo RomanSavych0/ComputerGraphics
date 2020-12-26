@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { AffineTransformationsContext } from "../../contexts/AffineTransformationsContext";
 import { Field, FieldArray, Form, Formik } from "formik";
-
+import c from "./AffineTransformations.module.scss";
 const AffineTransformationsProperties = () => {
+  // @ts-ignore
   const { properties, setProperties } = useContext(
     AffineTransformationsContext
   );
-  const axis = ["x", "y"];
+  const axis = ["X:", "Y:"];
   const pointsName = ["A", "B", "C"];
 
   const handleClear = () => {
@@ -47,11 +48,12 @@ const AffineTransformationsProperties = () => {
           <FieldArray name={"points"}>
             {() =>
               values.points.map((point, pointIndex) => (
-                <div key={pointIndex}>
+                <div key={pointIndex} className={c.flex}>
                   <label htmlFor={pointsName[pointIndex]}>
                     Point {pointsName[pointIndex]}:
                   </label>
                   <FieldArray
+                    // @ts-ignore
                     id={pointsName[pointIndex]}
                     key={pointIndex}
                     name={`points.${pointIndex}`}
@@ -70,6 +72,7 @@ const AffineTransformationsProperties = () => {
                               id={fieldId}
                               name={`points.${pointIndex}.${coordinateIndex}`}
                               label={`${pointsName[pointIndex]}${axis[coordinateIndex]}`}
+                              type="number"
                             />
                           </div>
                         );
@@ -101,7 +104,11 @@ const AffineTransformationsProperties = () => {
                   Rotation Point {values.rotationPoint}
                 </label>
               </div>
-              <Field name={"rotationPoint"} id={"rotationPoint"} />
+              <Field
+                name={"rotationPoint"}
+                id={"rotationPoint"}
+                type="number"
+              />
             </div>
           </div>
           <div>
