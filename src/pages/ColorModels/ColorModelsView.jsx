@@ -17,7 +17,15 @@ const ColorModelsView = () => {
     setIsImageLoaded(true);
     setInitialCanvas();
   };
+  let canvasUrl = "";
 
+  if (fileSrc) {
+    let canvas = document.getElementById("canvass");
+    if (canvas) {
+      canvasUrl = canvas.toDataURL();
+    }
+  }
+  console.log(canvasUrl);
   const setInitialCanvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -85,8 +93,11 @@ const ColorModelsView = () => {
         )}
       </div>
       <div className={s.IOContainer}>
-        {fileSrc && <canvas ref={canvasRef} />}
+        {fileSrc && <canvas ref={canvasRef} id="canvass" />}
       </div>
+      <a href={canvasUrl} download>
+        Click to download
+      </a>
     </div>
   );
 };
