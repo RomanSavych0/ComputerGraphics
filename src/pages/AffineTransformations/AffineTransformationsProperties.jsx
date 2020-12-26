@@ -104,11 +104,7 @@ const AffineTransformationsProperties = () => {
                   Rotation Point {values.rotationPoint}
                 </label>
               </div>
-              <Field
-                name={"rotationPoint"}
-                id={"rotationPoint"}
-                type="number"
-              />
+              <Field name={"rotationPoint"} id={"rotationPoint"} />
             </div>
           </div>
           <div>
