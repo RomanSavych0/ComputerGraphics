@@ -92,11 +92,12 @@ const AffineTransformationsView = () => {
 
     svg
       .select('.x-axis')
-      .style('transform', `translateY(${height}px)`)
+      .style('transform', `translateY(${height / 2}px)`)
       .call(xAxis);
 
     svg
       .select('.y-axis')
+      .style('transform', `translateX(${width / 2}px)`)
       .call(yAxis);
 
     if (points.filter((el) => el[0] !== 0 && el[1] !== 0).length) {
@@ -110,7 +111,7 @@ const AffineTransformationsView = () => {
         .text((d, i) => pointsName[i]);
     }
 
-    const pos = [[width + 10, height], [0, -10]];
+    const pos = [[width + 10, height / 2], [width / 2, -10]];
     const axesNames = ['X', 'Y'];
 
     svg
