@@ -87,13 +87,6 @@ const ColorModelsView = () => {
       <div className={s.IOContainer}>
         {fileSrc && <canvas ref={canvasRef} />}
       </div>
-      <img src={fileSrc} ref={image} id="my-image" />
-      <canvas
-        ref={canvasImage}
-        id="canvasImage"
-        height="600"
-        width="840"
-      ></canvas>
     </div>
   );
 };
