@@ -34,6 +34,14 @@ const AffineTransformationsProperties = () => {
         xScale,
         yScale,
       }) => {
+        if (
+          rotationPoint !== "A" &&
+          rotationPoint !== "B" &&
+          rotationPoint !== "C"
+        ) {
+          console.log(rotationPoint);
+          alert("input correct rotation point(A , B , C)");
+        }
         setProperties({
           rotationInDegrees: +rotationInDegrees,
           points: points.map((p) => [+p[0], +p[1]]),
