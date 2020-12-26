@@ -8,6 +8,7 @@ const FileProperties = () => {
     ColorModelsContext
   );
   const inputRef = useRef();
+  const timerId = useRef();
 
   const handleUploadFile = () => {
     // @ts-ignore
@@ -20,8 +21,14 @@ const FileProperties = () => {
     }
   };
 
-  const handleChangeGreenSaturation = (e) => {
-    setGreenSaturation(e.target.value);
+  const handleChangeGreenSaturation = ({target: {value}}) => {
+    if (timerId) {
+      clearTimeout(timerId)
+    }
+
+    setTimeout(() => {
+      setGreenSaturation(value);
+    }, 50)
   };
 
   return (

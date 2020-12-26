@@ -1,44 +1,54 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Formik, Form, Field} from 'formik';
-import s from './ColorModels.module.scss';
+import style from './ColorModels.module.scss';
 import * as convert from 'color-convert';
+import {ColorModelsContext} from '../../contexts/ColorModelsContext';
 
 const ConvertColorProperties = () => {
+  const {pixels, imageSize} = useContext(ColorModelsContext);
+
   return (
     <Formik
       initialValues={{
-        r: '',
-        g: '',
-        b: '',
-        h: '',
-        s: '',
-        v: ''
+        r: '', g: '', b: '',
+        h: '', s: '', v: '',
+        x: '', y: ''
       }}
-      onSubmit={({r, g, b}, {setFieldValue}) => {
-        const [h, s, v] = convert.rgb.hsv(+r, +g, +b);
+      onSubmit={({x, y}, {setFieldValue}) => {
+        x = +x;
+        y = +y;
 
-        setFieldValue('h', h)
-        setFieldValue('s', s)
-        setFieldValue('v', v)
+        if (x >= 0 && x < imageSize.width && y >= 0 && y < imageSize.height) {
+          const offset = (imageSize.width * y + x) * 4;
+          const [r, g, b] = pixels.slice(offset, offset + 3);
+          const [h, s, v] = convert.rgb.hsv([r, g, b]);
+
+          setFieldValue('h', h);
+          setFieldValue('s', s);
+          setFieldValue('v', v);
+          setFieldValue('r', r);
+          setFieldValue('g', g);
+          setFieldValue('b', b);
+        }
       }}
     >
-      <Form className={s.convertForm}>
-        <div className={s.convertValuesContainer}>
-          <div className={s.convertValuesColumn}>
+      <Form className={style.convertForm}>
+        <div className={style.convertValuesContainer}>
+          <div className={style.convertValuesColumn}>
             <div>
               <label htmlFor="r">R:</label>
-              <Field id={'r'} name={'r'}/>
+              <Field disabled id={'r'} name={'r'}/>
             </div>
             <div>
               <label htmlFor="g">G:</label>
-              <Field id={'g'} name={'g'}/>
+              <Field disabled id={'g'} name={'g'}/>
             </div>
             <div>
               <label htmlFor="b">B:</label>
-              <Field id={'b'} name={'b'}/>
+              <Field disabled id={'b'} name={'b'}/>
             </div>
           </div>
-          <div className={s.convertValuesColumn}>
+          <div className={style.convertValuesColumn}>
             <div>
               <label htmlFor="h">H:</label>
               <Field disabled id={'h'} name={'h'}/>
@@ -53,7 +63,17 @@ const ConvertColorProperties = () => {
             </div>
           </div>
         </div>
-        <button type={'submit'}>Convert</button>
+        <div>
+          <div>
+            <label htmlFor="x">X:</label>
+            <Field required id={'x'} name={'x'}/>
+          </div>
+          <div>
+            <label htmlFor="y">Y:</label>
+            <Field required id={'y'} name={'y'}/>
+          </div>
+        </div>
+        <button type={'submit'}>Show</button>
       </Form>
     </Formik>
   );
