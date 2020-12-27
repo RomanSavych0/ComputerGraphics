@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import s from "./ColorModels.module.scss";
 import { ColorModelsContext } from "../../contexts/ColorModelsContext";
-
+import cn from "classnames";
 const FileProperties = () => {
   // @ts-ignore
   const { setFileSrc, setGreenSaturation, greenSaturation } = useContext(
@@ -20,27 +20,33 @@ const FileProperties = () => {
     }
   };
 
-  const handleChangeGreenSaturation = ({target: {value}}) => {
+  const handleChangeGreenSaturation = ({ target: { value } }) => {
     if (timerId) {
-      clearTimeout(timerId)
+      clearTimeout(timerId);
     }
 
     setTimeout(() => {
       setGreenSaturation(value);
-    }, 50)
+    }, 50);
   };
 
   return (
     <div className={s.fileForm}>
-      <input type="file" ref={inputRef} />
-      <button onClick={handleUploadFile}>Upload</button>
-      <div>
+      <div className={s.row}>
+        <label className={s.button}>
+          File
+          <input type="file" ref={inputRef} />
+        </label>
+
+        <button onClick={handleUploadFile}>Upload</button>
+      </div>
+      <div className={s.green}>
         <label htmlFor="greenSaturation">
           Green Saturation {greenSaturation}:
         </label>
       </div>
       <input
-        style={{ width: 200 }}
+        style={{ width: "100%" }}
         min={0}
         max={1}
         step={0.01}

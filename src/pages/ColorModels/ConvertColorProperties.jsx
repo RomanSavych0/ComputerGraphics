@@ -3,8 +3,9 @@ import { Formik, Form, Field } from "formik";
 import style from "./ColorModels.module.scss";
 import * as convert from "color-convert";
 import { ColorModelsContext } from "../../contexts/ColorModelsContext";
-
+import cn from "classnames";
 const ConvertColorProperties = () => {
+  // @ts-ignore
   const { pixels, imageSize } = useContext(ColorModelsContext);
   const [rgb, setRgb] = useState("");
 
@@ -46,41 +47,48 @@ const ConvertColorProperties = () => {
     >
       <Form className={style.convertForm}>
         <div className={style.convertValuesContainer}>
-          <div className={style.convertValuesColumn}>
-            <div>
-              <label htmlFor="r">R:</label>
-              <Field disabled id={"r"} name={"r"} />
-            </div>
-            <div>
-              <label htmlFor="g">G:</label>
-              <Field disabled id={"g"} name={"g"} />
-            </div>
-            <div>
-              <label htmlFor="b">B:</label>
-              <Field disabled id={"b"} name={"b"} type="number" />
+          <div className={cn(style.convertValuesColumn, style.red)}>
+            <div className={style.title}>RGB</div>
+            <div className={style.data}>
+              <div>
+                <label htmlFor="r">R:</label>
+                <Field disabled id={"r"} name={"r"} />
+              </div>
+              <div>
+                <label htmlFor="g">G:</label>
+                <Field disabled id={"g"} name={"g"} />
+              </div>
+              <div>
+                <label htmlFor="b">B:</label>
+                <Field disabled id={"b"} name={"b"} type="number" />
+              </div>
             </div>
           </div>
-          <div className={style.convertValuesColumn}>
-            <div>
-              <label htmlFor="h">H:</label>
-              <Field disabled id={"h"} name={"h"} />
-            </div>
-            <div>
-              <label htmlFor="s">S:</label>
-              <Field disabled id={"s"} name={"s"} />
-            </div>
-            <div>
-              <label htmlFor="v">V:</label>
-              <Field disabled id={"v"} name={"v"} />
+          <div className={cn(style.convertValuesColumn, style.white)}>
+            <div className={style.title}>HSV</div>
+            <div className={style.data}>
+              <div>
+                <label htmlFor="h">H:</label>
+                <Field disabled id={"h"} name={"h"} />
+              </div>
+              <div>
+                <label htmlFor="s">S:</label>
+                <Field disabled id={"s"} name={"s"} />
+              </div>
+              <div>
+                <label htmlFor="v">V:</label>
+                <Field disabled id={"v"} name={"v"} />
+              </div>
             </div>
           </div>
         </div>
-        <div>
-          <div>
+
+        <div className={style.coordinates}>
+          <div className={cn(style.item, style.red)}>
             <label htmlFor="x">X:</label>
             <Field required id={"x"} name={"x"} type="number" />
           </div>
-          <div>
+          <div className={cn(style.item, style.white)}>
             <label htmlFor="y">Y:</label>
             <Field required id={"y"} name={"y"} type="number" />
           </div>
