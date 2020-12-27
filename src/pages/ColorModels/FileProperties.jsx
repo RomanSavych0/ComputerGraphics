@@ -17,7 +17,6 @@ const FileProperties = () => {
     if (file) {
       const src = URL.createObjectURL(file);
       setFileSrc(src);
-      console.log(file);
     }
   };
 

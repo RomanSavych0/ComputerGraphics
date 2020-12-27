@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import style from "./ColorModels.module.scss";
 import * as convert from "color-convert";
 import { ColorModelsContext } from "../../contexts/ColorModelsContext";
 
 const ConvertColorProperties = () => {
-  // @ts-ignore
   const { pixels, imageSize } = useContext(ColorModelsContext);
+  const [rgb, setRgb] = useState("");
 
   return (
     <Formik
@@ -32,6 +32,8 @@ const ConvertColorProperties = () => {
           const offset = (imageSize.width * y + x) * 4;
           const [r, g, b] = pixels.slice(offset, offset + 3);
           const [h, s, v] = convert.rgb.hsv([r, g, b]);
+
+          setRgb([r, g, b].join(","));
 
           setFieldValue("h", h);
           setFieldValue("s", s);
@@ -83,6 +85,10 @@ const ConvertColorProperties = () => {
             <Field required id={"y"} name={"y"} type="number" />
           </div>
         </div>
+        <div
+          className={style.colorPicker}
+          style={{ backgroundColor: `rgb(${rgb})` }}
+        />
         <button type={"submit"}>Show</button>
       </Form>
     </Formik>
