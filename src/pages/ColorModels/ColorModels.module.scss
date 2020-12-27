@@ -7,6 +7,9 @@
 
 .IOImage {
   width: 300px;
+  position: absolute;
+  left: -1000px;
+  top: -1000px;
 }
 
 .convertForm, .fileForm {

@@ -1,34 +1,30 @@
 // @ts-nocheck
-import React, { useContext, useRef, useEffect, useState } from "react";
-import s from "./ColorModels.module.scss";
-import { ColorModelsContext } from "../../contexts/ColorModelsContext";
-import convert from "color-convert";
+import React, {useContext, useRef, useEffect, useState} from 'react';
+import s from './ColorModels.module.scss';
+import {ColorModelsContext} from '../../contexts/ColorModelsContext';
+import convert from 'color-convert';
+import {files} from 'd3/dist/package';
 
 const ColorModelsView = () => {
-  const { fileSrc, greenSaturation, setPixels, setImageSize } = useContext(
+  const {fileSrc, greenSaturation, setPixels, setImageSize} = useContext(
     ColorModelsContext
   );
-  const canvasRef = useRef();
+  const filterImageCanvasRef = useRef();
+  const initImageCanvasRef = useRef();
   const imageRef = useRef();
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [canvasUrl, setCanvasUrl] = useState('');
   const imageData = useRef();
 
   const onLoadImage = () => {
     setIsImageLoaded(true);
-    setInitialCanvas();
+    setInitImageCanvas();
+    setFilterImageCanvas();
   };
-  let canvasUrl = "";
 
-  if (fileSrc) {
-    let canvas = document.getElementById("canvass");
-    if (canvas) {
-      canvasUrl = canvas.toDataURL();
-    }
-  }
-  console.log(canvasUrl);
-  const setInitialCanvas = () => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+  const setInitImageCanvas = () => {
+    const canvas = initImageCanvasRef.current;
+    const ctx = canvas.getContext('2d');
     const image = imageRef.current;
     const width = image.clientWidth;
     const height = image.clientHeight;
@@ -37,12 +33,26 @@ const ColorModelsView = () => {
     canvas.height = height;
 
     ctx.drawImage(image, 0, 0, width, height);
-    setImageSize({ width, height });
+    setImageSize({width, height});
+    setPixels(getPixels(initImageCanvasRef).data);
   };
 
-  const getPixels = () => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+  const setFilterImageCanvas = () => {
+    const canvas = filterImageCanvasRef.current;
+    const ctx = canvas.getContext('2d');
+    const image = imageRef.current;
+    const width = image.clientWidth;
+    const height = image.clientHeight;
+
+    canvas.width = width;
+    canvas.height = height;
+
+    ctx.drawImage(image, 0, 0, width, height);
+  };
+
+  const getPixels = (ref) => {
+    const canvas = ref.current;
+    const ctx = canvas.getContext('2d');
     return ctx.getImageData(0, 0, canvas.width, canvas.height);
   };
 
@@ -71,29 +81,27 @@ const ColorModelsView = () => {
 
   useEffect(() => {
     if (isImageLoaded) {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
-      imageData.current = getPixels();
+      const canvas = filterImageCanvasRef.current;
+      const ctx = canvas.getContext('2d');
+      imageData.current = getPixels(filterImageCanvasRef);
       filter();
       ctx.putImageData(imageData.current, 0, 0);
-      setPixels(imageData.current.data);
+      setCanvasUrl(canvas.toDataURL());
     }
   }, [isImageLoaded, greenSaturation]);
 
   return (
-    <div style={{ height: "100%" }}>
+    <div style={{height: '100%'}}>
       <div className={s.IOContainer}>
         {fileSrc && (
-          <img
-            ref={imageRef}
-            src={fileSrc}
-            className={s.IOImage}
-            alt={"initImage"}
-          />
+          <>
+            <canvas ref={initImageCanvasRef}/>
+            <img src={fileSrc} ref={imageRef} className={s.IOImage} alt="initImage"/>
+          </>
         )}
       </div>
       <div className={s.IOContainer}>
-        {fileSrc && <canvas ref={canvasRef} id="canvass" />}
+        {fileSrc && <canvas ref={filterImageCanvasRef}/>}
       </div>
       <a href={canvasUrl} download>
         Click to download
