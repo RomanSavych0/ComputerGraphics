@@ -69,9 +69,10 @@ const AffineTransformationsView = () => {
     const x = points.map(p => p[0]);
     const y = points.map(p => p[1]);
 
-    const xScale = scaleLinear().domain([min(x) - 3, max(x) + 3]).range([0, width]);
-    const yScale = scaleLinear().domain([min(y) - 3, max(y) + 3]).range([height, 0]);
-
+    const maxabsX = Math.max(Math.abs(min(x) - 3), Math.abs(max(x) + 3));
+    const maxabsY = Math.max(Math.abs(min(y) - 3), Math.abs(max(y) + 3));
+    const xScale = scaleLinear().domain([-maxabsX, maxabsX]).range([0, width]);
+    const yScale = scaleLinear().domain([-maxabsY, maxabsY]).range([height, 0]);
     const xAxis = axisBottom(xScale);
     const yAxis = axisLeft(yScale);
 
@@ -109,6 +110,11 @@ const AffineTransformationsView = () => {
         .attr('x', (d) => xScale(d[0] + 0.2))
         .attr('y', (d) => yScale(d[1] - 0.2))
         .text((d, i) => pointsName[i]);
+    } else {
+      svg
+        .select('.pointsLabels')
+        .selectAll('text')
+        .remove()
     }
 
     const pos = [[width + 10, height / 2], [width / 2, -10]];
