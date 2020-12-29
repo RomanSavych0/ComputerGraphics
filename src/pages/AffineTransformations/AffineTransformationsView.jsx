@@ -8,6 +8,7 @@ const AffineTransformationsView = () => {
   const ref = useRef();
   const requestId = useRef(0);
   const [points, setPoints] = useState([[0, 0], [0, 0], [0, 0], [0, 0]]);
+  const [edge, setEdge] = useState([0, 0]);
   const [animating, setAnimating] = useState(false);
   const rotationPoint = useRef([0, 0]);
   const xScale = useRef(1);
@@ -45,6 +46,35 @@ const AffineTransformationsView = () => {
         stopAnimation();
       }
 
+      const allPossiblePoints = [];
+
+      for (let partTime = 0; partTime <= 1; partTime += 0.001) {
+        initialPoints.current.forEach((initPoint) => {
+          const matrix = compose(
+            rotate(
+              rotationInRadians.current * partTime,
+              rotationPoint.current[0], rotationPoint.current[1]),
+            scale((xScale.current - 1) * partTime + 1, (yScale.current - 1) * partTime + 1)
+          );
+
+          allPossiblePoints.push(applyToPoint(matrix, initPoint));
+        });
+      }
+
+      const allPossibleX = allPossiblePoints.map(pp => pp[0]);
+      const allPossibleY = allPossiblePoints.map(pp => pp[0]);
+
+      const maxabsX = Math.max(
+        Math.abs(min(allPossibleX) - 3),
+        Math.abs(max(allPossibleX) + 3)
+      );
+      const maxabsY = Math.max(
+        Math.abs(min(allPossibleY) - 3),
+        Math.abs(max(allPossibleY) + 3)
+      );
+
+      setEdge([maxabsX, maxabsY]);
+
       if (rotationInRadians.current === 0 && xScale.current === 1 && yScale.current === 1) {
 
       } else {
@@ -64,15 +94,11 @@ const AffineTransformationsView = () => {
   useEffect(() => {
     const svg = select(ref.current);
 
-    const width = 600, height = 600;
+    const width = 800, height = 800;
 
-    const x = points.map(p => p[0]);
-    const y = points.map(p => p[1]);
+    const xScale = scaleLinear().domain([-edge[0], edge[0]]).range([0, width]);
+    const yScale = scaleLinear().domain([-edge[1], edge[1]]).range([height, 0]);
 
-    const maxabsX = Math.max(Math.abs(min(x) - 3), Math.abs(max(x) + 3));
-    const maxabsY = Math.max(Math.abs(min(y) - 3), Math.abs(max(y) + 3));
-    const xScale = scaleLinear().domain([-maxabsX, maxabsX]).range([0, width]);
-    const yScale = scaleLinear().domain([-maxabsY, maxabsY]).range([height, 0]);
     const xAxis = axisBottom(xScale);
     const yAxis = axisLeft(yScale);
 
@@ -114,7 +140,7 @@ const AffineTransformationsView = () => {
       svg
         .select('.pointsLabels')
         .selectAll('text')
-        .remove()
+        .remove();
     }
 
     const pos = [[width + 10, height / 2], [width / 2, -10]];
